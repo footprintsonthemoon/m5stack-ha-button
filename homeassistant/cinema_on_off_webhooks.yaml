@@ -1,0 +1,19 @@
+# Diese Trigger-Einträge zu deinen BESTEHENDEN Automationen "Cinema On" /
+# "Cinema Off" hinzufügen: Einstellungen -> Automationen & Szenen ->
+# Automation öffnen -> oben rechts die drei Punkte -> "In YAML bearbeiten" ->
+# als zusätzliches Element unter "triggers:" einfügen (bestehende Trigger
+# und alle actions/conditions bleiben unverändert).
+
+# --- Zusätzlich in "Cinema On" -> triggers: ---
+  - trigger: webhook
+    webhook_id: c90f97148b4b3eb5
+    local_only: true
+    allowed_methods:
+      - POST
+
+# --- Zusätzlich in "Cinema Off" -> triggers: ---
+  - trigger: webhook
+    webhook_id: 868818cab12fda92
+    local_only: true
+    allowed_methods:
+      - POST

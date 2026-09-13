@@ -1,0 +1,38 @@
+# 1) Script "Kameras ein" (falls noch nicht vorhanden) analog zu kameras_aus.yaml:
+#    Einstellungen -> Automationen & Szenen -> Skripte -> "+ Skript hinzufügen"
+#    -> drei Punkte -> "In YAML bearbeiten" -> dies einfügen.
+
+alias: Kameras ein
+sequence:
+  - action: switch.turn_on
+    target:
+      entity_id: switch.baum  # Steckdose der Tapo-Kamera
+  - action: switch.turn_on
+    target:
+      entity_id: switch.eufy_atelier_camera_enabled
+  - action: switch.turn_on
+    target:
+      entity_id: switch.eufy_cat_camera_enabled
+
+---
+# 2) Wrapper-Automation, die per Webhook (langer Druck auf Taste C am
+#    M5Stack, sobald Kameras aus sind) das obige Script auslöst.
+#    WICHTIG: entity_id unten mit der echten Entity-ID deines "Kameras ein"-
+#    Scripts abgleichen (Entwicklertools -> Zustände, nach "script." filtern).
+
+alias: Kameras ein (Webhook)
+trigger:
+  - trigger: webhook
+    webhook_id: 9cce5525ca85c962
+    local_only: true
+    allowed_methods:
+      - POST
+action:
+  - action: script.turn_on
+    target:
+      entity_id: script.kamera_ein
+  - action: persistent_notification.create
+    data:
+      title: "Kameras ein"
+      message: "Kameras wurden wieder eingeschaltet."
+mode: single

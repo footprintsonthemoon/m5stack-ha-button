@@ -1,0 +1,32 @@
+# Auf dem Homeserver (192.168.0.42) ablegen unter:
+#   /opt/eufy-security-ws/docker-compose.yaml
+# Vorher: mkdir -p /opt/eufy-security-ws/data
+#
+# WICHTIG: network_mode: host ist von den Docker-Docs empfohlen, damit die
+# lokale P2P-Erkennung der Homebase per UDP-Broadcast funktioniert (sonst
+# nutzt der Server die langsamere/unzuverlässigere Eufy-Cloud als Fallback).
+# Das ist eine bewusste Abweichung von "normalem" Bridge-Networking - mit
+# host-Networking ist KEINE "ports:"-Sektion nötig/wirksam, der Container
+# bindet direkt auf Port 3000 des Host-Netzwerks. Stell sicher, dass Port
+# 3000 auf 192.168.0.42 nicht schon von einem anderen Container belegt ist.
+#
+# Zugangsdaten (USERNAME/PASSWORD) direkt hier eintragen - diese Datei NICHT
+# in ein Git-Repo committen.
+
+services:
+  eufy-security-ws:
+    image: bropat/eufy-security-ws:latest
+    container_name: eufy-security-ws
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      USERNAME: "DEINE_EUFY_EMAIL"
+      PASSWORD: "DEIN_EUFY_PASSWORT"
+      COUNTRY: "CH"
+      PORT: "3000"
+      # Optional, aber empfohlen: erzwingt direkte lokale Verbindung zur
+      # Homebase statt Auto-Discovery. Seriennummer findest du in der Eufy-
+      # App unter Geräteeinstellungen -> Über das Gerät (Format z.B. T8010...).
+      STATION_IP_ADDRESSES: "DEINE_HOMEBASE_SERIENNUMMER:192.168.0.102"
+    volumes:
+      - ./data:/data

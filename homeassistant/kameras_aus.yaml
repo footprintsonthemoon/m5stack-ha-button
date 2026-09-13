@@ -1,0 +1,37 @@
+# 1) Neues Script anlegen:
+#    Einstellungen -> Automationen & Szenen -> Skripte -> "+ Skript hinzufügen"
+#    -> oben rechts drei Punkte -> "In YAML bearbeiten" -> dies einfügen.
+
+alias: Kameras aus
+sequence:
+  - action: switch.turn_off
+    target:
+      entity_id: switch.baum  # Steckdose der Tapo-Kamera
+  - action: switch.turn_off
+    target:
+      entity_id: switch.eufy_atelier_camera_enabled
+  - action: switch.turn_off
+    target:
+      entity_id: switch.eufy_cat_camera_enabled
+
+---
+# 2) Neue Automation anlegen, die per Webhook nur das obige Script auslöst:
+#    Einstellungen -> Automationen & Szenen -> "+ Automation hinzufügen" ->
+#    "Leere Automation erstellen" -> drei Punkte -> "In YAML bearbeiten".
+
+alias: Kameras aus (Webhook)
+trigger:
+  - trigger: webhook
+    webhook_id: c25bb5bb3b54510b
+    local_only: true
+    allowed_methods:
+      - POST
+action:
+  - action: script.turn_on
+    target:
+      entity_id: script.kamera_aus
+  - action: persistent_notification.create
+    data:
+      title: "Kameras aus"
+      message: "Kameras wurden ausgeschaltet."
+mode: single
