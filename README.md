@@ -1,8 +1,10 @@
-# Camera Button
+# m5stack-ha-button
 
 Physischer Drei-Tasten-Controller (M5Stack Basic Core, ESP32) für Home Assistant:
 Kino-Leinwand rauf/runter und alle Überwachungskameras (Tapo + Eufy) ein/aus –
 per Knopfdruck, ohne Handy oder Sprachassistent.
+
+![Gerät mit den drei Karten "Kino ein", "Kino aus", "Kameras aus"](assets/device.jpg)
 
 ## Funktionen
 
