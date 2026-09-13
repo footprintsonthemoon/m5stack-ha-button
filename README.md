@@ -31,16 +31,19 @@ Three glowing cards light up on the screen, ready to fire.
 
 One box, three buttons, one job each:
 
-- **Cinema on** — lower the projector screen
-- **Cinema off** — raise it again
+- **Cinema on** — a full "movie night" scene: closes the blinds, turns off
+  the lights, lowers the projector screen, and powers on the projector,
+  surround amp, and Apple TV — switched straight to Netflix
+- **Cinema off** — runs the matching "movie night is over" automation
 - **Cameras off / on** — kill (and later restore) the Tapo + Eufy cameras,
   for whenever privacy matters more than surveillance
 
-The device itself knows nothing about your cameras, your screen, or how any
-of that actually works. It only knows three webhook URLs. All real logic
-(which switch flips, which script runs, what gets announced over TTS) lives
-entirely in Home Assistant, where it's easy to change without ever touching
-the firmware again.
+The device itself knows nothing about your blinds, lights, AV setup, cameras,
+or how any of that actually works. It only knows three webhook URLs. All real
+logic (which switch flips, which script runs, what gets announced over TTS)
+lives entirely in Home Assistant, where it's easy to change without ever
+touching the firmware again — a one-button "cinema on" can grow from turning
+on a projector to a full scene like above without a single firmware update.
 
 That split also keeps the ESP32's blast radius small: no API token, no
 credentials beyond WiFi — just three unauthenticated, `local_only` webhook
