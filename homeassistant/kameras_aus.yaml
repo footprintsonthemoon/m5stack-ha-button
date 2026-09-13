@@ -6,13 +6,13 @@ alias: Kameras aus
 sequence:
   - action: switch.turn_off
     target:
-      entity_id: switch.baum  # Steckdose der Tapo-Kamera
+      entity_id: switch.tapo_camera_plug  # Steckdose der Tapo-Kamera
   - action: switch.turn_off
     target:
-      entity_id: switch.eufy_atelier_camera_enabled
+      entity_id: switch.eufy_camera_1_enabled
   - action: switch.turn_off
     target:
-      entity_id: switch.eufy_cat_camera_enabled
+      entity_id: switch.eufy_camera_2_enabled
 
 ---
 # 2) Neue Automation anlegen, die per Webhook nur das obige Script auslöst:
@@ -22,7 +22,7 @@ sequence:
 alias: Kameras aus (Webhook)
 trigger:
   - trigger: webhook
-    webhook_id: c25bb5bb3b54510b
+    webhook_id: your-webhook-id-3
     local_only: true
     allowed_methods:
       - POST
